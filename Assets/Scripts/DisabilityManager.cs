@@ -6,6 +6,7 @@ using UnityEngine.Rendering.Universal; // For URP
 
 public enum ColorBlindessTypes
 {
+    normalvision,
     proptanopia,
     deuteranopia,
     tritanopia,
@@ -13,6 +14,7 @@ public enum ColorBlindessTypes
 
 public class DisabilityManager : MonoBehaviour
 {
+    public static DisabilityManager instance { get; private set; }
     //[HeaderAttribute("Disabilities")]
     //public bool protanopia = false;     // Missing Red
     //public bool deuteranopia = false;   // Missing Green
@@ -24,9 +26,23 @@ public class DisabilityManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+
         postProcessingVolume = gameObject.GetComponent<Volume>();
         colorBlindnessProfiles = new Dictionary<string, Dictionary<string, Vector3>>
         {
+            { "normalvision", new Dictionary<string, Vector3>{
+                { "r", new Vector3 (100, 0  , 0  ) },
+                { "g", new Vector3 (0  , 100, 0  ) },
+                { "b", new Vector3 (0  , 0  , 100) },
+            } },
             { "proptanopia", new Dictionary<string, Vector3>{ 
                 { "r", new Vector3 (56.667f, 43.333f, 0      ) },
                 { "g", new Vector3 (55.833f, 44.167f, 0      ) },
@@ -80,19 +96,73 @@ public class DisabilityManager : MonoBehaviour
         applyColorBlindness(colorBlindNessName.ToString());
     }
 
+    [ContextMenu("Remove VisionImpairments")]
+    public void clearAllVisionImpairments()
+    {
+        applyColorBlindness(ColorBlindessTypes.normalvision);
+        if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
+        {
+            vignette.active = false;
+        };
+        if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
+        {
+            bloom.active = false;
+        };
+    }
+
+    [ContextMenu("Apply Proptanopia")]
     public void applyProptanopia()
     {
-        applyColorBlindness("proptanopia");
+        applyColorBlindness(ColorBlindessTypes.proptanopia);
+        //applyColorBlindness("proptanopia");
     }
 
+    [ContextMenu("Apply Deuteranopia")]
     public void applyDeuteranopia()
     {
-        applyColorBlindness("deuteranopia");
+        applyColorBlindness(ColorBlindessTypes.deuteranopia);
+        //applyColorBlindness("deuteranopia");
     }
 
+    [ContextMenu("Apply Tritanopia")]
     public void applyTritanopia()
     {
-        applyColorBlindness("tritanopia");
+        applyColorBlindness(ColorBlindessTypes.tritanopia);
+        //applyColorBlindness("tritanopia");
+    }
+
+    [ContextMenu("Apply NormalVision")]
+    public void applyNormalVision()
+    {
+        applyColorBlindness(ColorBlindessTypes.normalvision);
+    }
+
+    [ContextMenu("Apply Glaucoma")]
+    public void applyGlaucoma()
+    {
+        if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
+        {
+            vignette.active = true;
+        };
+    }
+
+    [ContextMenu("Apply Cataracts")]
+    public void applyCataracts()
+    {
+        if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
+        {
+            bloom.active = true;
+        };
+    }
+
+
+    [ContextMenu("Apply Macular Degeneration")]
+    public void applyMacularDegeneration()
+    {
+        if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
+        {
+            vignette.active = true;
+        };
     }
 
 

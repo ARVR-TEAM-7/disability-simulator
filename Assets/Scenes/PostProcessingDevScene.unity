@@ -16811,9 +16811,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9ba237e854e954a93b92179d94e790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  protanopia: 0
-  deuteranopia: 0
-  tritanopia: 0
 --- !u!1 &1595563443
 GameObject:
   m_ObjectHideFlags: 0

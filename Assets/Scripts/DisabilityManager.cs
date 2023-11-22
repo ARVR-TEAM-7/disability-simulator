@@ -86,6 +86,16 @@ public class DisabilityManager : MonoBehaviour
         applyColorBlindness(colorBlindNessName.ToString());
     }
 
+    [ContextMenu("Remove VisionImpairments")]
+    public void clearAllVisionImpairments()
+    {
+        applyColorBlindness(ColorBlindessTypes.normalvision);
+        if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
+        {
+            vignette.active = false;
+        };
+    }
+
     [ContextMenu("Apply Proptanopia")]
     public void applyProptanopia()
     {
@@ -111,6 +121,24 @@ public class DisabilityManager : MonoBehaviour
     public void applyNormalVision()
     {
         applyColorBlindness(ColorBlindessTypes.normalvision);
+    }
+
+    [ContextMenu("Apply Glaucoma")]
+    public void applyGlaucoma()
+    {
+        if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
+        {
+            vignette.active = true;
+        };
+    }
+
+    [ContextMenu("Apply Macular Degeneration")]
+    public void applyMacularDegeneration()
+    {
+        if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
+        {
+            vignette.active = true;
+        };
     }
 
 

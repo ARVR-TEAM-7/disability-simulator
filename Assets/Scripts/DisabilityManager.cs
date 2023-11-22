@@ -14,6 +14,7 @@ public enum ColorBlindessTypes
 
 public class DisabilityManager : MonoBehaviour
 {
+    public static DisabilityManager instance { get; private set; }
     //[HeaderAttribute("Disabilities")]
     //public bool protanopia = false;     // Missing Red
     //public bool deuteranopia = false;   // Missing Green
@@ -25,6 +26,15 @@ public class DisabilityManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+
         postProcessingVolume = gameObject.GetComponent<Volume>();
         colorBlindnessProfiles = new Dictionary<string, Dictionary<string, Vector3>>
         {

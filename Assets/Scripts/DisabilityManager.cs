@@ -94,6 +94,10 @@ public class DisabilityManager : MonoBehaviour
         {
             vignette.active = false;
         };
+        if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
+        {
+            bloom.active = false;
+        };
     }
 
     [ContextMenu("Apply Proptanopia")]
@@ -131,6 +135,16 @@ public class DisabilityManager : MonoBehaviour
             vignette.active = true;
         };
     }
+
+    [ContextMenu("Apply Cataracts")]
+    public void applyCataracts()
+    {
+        if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
+        {
+            bloom.active = true;
+        };
+    }
+
 
     [ContextMenu("Apply Macular Degeneration")]
     public void applyMacularDegeneration()

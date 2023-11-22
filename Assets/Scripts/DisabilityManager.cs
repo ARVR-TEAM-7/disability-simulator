@@ -6,6 +6,7 @@ using UnityEngine.Rendering.Universal; // For URP
 
 public enum ColorBlindessTypes
 {
+    normalvision,
     proptanopia,
     deuteranopia,
     tritanopia,
@@ -27,6 +28,11 @@ public class DisabilityManager : MonoBehaviour
         postProcessingVolume = gameObject.GetComponent<Volume>();
         colorBlindnessProfiles = new Dictionary<string, Dictionary<string, Vector3>>
         {
+            { "normalvision", new Dictionary<string, Vector3>{
+                { "r", new Vector3 (100, 0  , 0  ) },
+                { "g", new Vector3 (0  , 100, 0  ) },
+                { "b", new Vector3 (0  , 0  , 100) },
+            } },
             { "proptanopia", new Dictionary<string, Vector3>{ 
                 { "r", new Vector3 (56.667f, 43.333f, 0      ) },
                 { "g", new Vector3 (55.833f, 44.167f, 0      ) },
@@ -83,19 +89,28 @@ public class DisabilityManager : MonoBehaviour
     [ContextMenu("Apply Proptanopia")]
     public void applyProptanopia()
     {
-        applyColorBlindness("proptanopia");
+        applyColorBlindness(ColorBlindessTypes.proptanopia);
+        //applyColorBlindness("proptanopia");
     }
 
     [ContextMenu("Apply Deuteranopia")]
     public void applyDeuteranopia()
     {
-        applyColorBlindness("deuteranopia");
+        applyColorBlindness(ColorBlindessTypes.deuteranopia);
+        //applyColorBlindness("deuteranopia");
     }
 
     [ContextMenu("Apply Tritanopia")]
     public void applyTritanopia()
     {
-        applyColorBlindness("tritanopia");
+        applyColorBlindness(ColorBlindessTypes.tritanopia);
+        //applyColorBlindness("tritanopia");
+    }
+
+    [ContextMenu("Apply NormalVision")]
+    public void applyNormalVision()
+    {
+        applyColorBlindness(ColorBlindessTypes.normalvision);
     }
 
 

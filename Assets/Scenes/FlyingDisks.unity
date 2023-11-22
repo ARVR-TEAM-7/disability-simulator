@@ -547,8 +547,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minMagnitude: 900
   maxMagnitude: 1200
-  minTimeTillNewDiskSeconds: 10
-  maxTimeTillNewDiskSeconds: 11
+  minTimeTillNewDiskSeconds: 0.5
+  maxTimeTillNewDiskSeconds: 3
   diskPrefab: {fileID: 7568547108651023532, guid: 04d61e6f18c364f4592a1530fe5f6256, type: 3}
 --- !u!1 &1432645392
 GameObject:

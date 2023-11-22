@@ -80,16 +80,19 @@ public class DisabilityManager : MonoBehaviour
         applyColorBlindness(colorBlindNessName.ToString());
     }
 
+    [ContextMenu("Apply Proptanopia")]
     public void applyProptanopia()
     {
         applyColorBlindness("proptanopia");
     }
 
+    [ContextMenu("Apply Deuteranopia")]
     public void applyDeuteranopia()
     {
         applyColorBlindness("deuteranopia");
     }
 
+    [ContextMenu("Apply Tritanopia")]
     public void applyTritanopia()
     {
         applyColorBlindness("tritanopia");

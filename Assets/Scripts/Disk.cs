@@ -10,8 +10,10 @@ public class Disk : MonoBehaviour
 
     public void SetRandomColor()
     {
-        Material diskMaterial = new Material(Shader.Find("Standard"));
+        Material diskMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         diskMaterial.color = Color.red;
+        diskMaterial.SetFloat("_Metallic", 1f);
+        diskMaterial.SetFloat("_Glossiness", 0.5f);
 
         disk.GetComponent<MeshRenderer>().material = diskMaterial;
         foreach (Transform shatteredDisks in diskShattered.transform)

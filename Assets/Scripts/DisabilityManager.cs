@@ -134,7 +134,7 @@ public class DisabilityManager : MonoBehaviour
     [ContextMenu("Apply NormalVision")]
     public void ApplyNormalVision()
     {
-        ApplyColorBlindness(ColorBlindessTypes.normalvision);
+        ClearAllVisionImpairments();
     }
 
     [ContextMenu("Apply Glaucoma")]

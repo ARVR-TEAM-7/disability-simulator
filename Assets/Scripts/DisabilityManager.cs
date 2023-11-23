@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,9 @@ public class DisabilityManager : MonoBehaviour
     private Volume postProcessingVolume;
 
     private Dictionary<string, Dictionary<string, Vector3>> colorBlindnessProfiles;
+    private List<Action> disabilities;
+
+    private int lastDisability;
 
     private void Awake()
     {
@@ -59,6 +63,13 @@ public class DisabilityManager : MonoBehaviour
                 { "b", new Vector3 (0,  47.5f,   52.5f  ) },
             } },
         };
+
+        disabilities = new List<Action>();
+        disabilities.Add(ApplyProptanopia);
+        disabilities.Add(ApplyDeuteranopia);
+        disabilities.Add(ApplyTritanopia);
+        disabilities.Add(ApplyGlaucoma);
+        disabilities.Add(ApplyCataracts);
     }
     // Start is called before the first frame update
     void Start()
@@ -166,9 +177,17 @@ public class DisabilityManager : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
+    public void SetRandomDisability()
     {
-       // ApplyColorBlindness("proptanopia");
+        ClearAllVisionImpairments();
+        int randomNumber = UnityEngine.Random.Range(0, disabilities.Count-2);
+        Action disability = disabilities[randomNumber];
+        disability();
+        disabilities.RemoveAt(randomNumber);
+        disabilities.Add(disability);
+
+        Debug.Log("Disability Appied");
+        //Debug.Log(disabilities);
     }
+
 }

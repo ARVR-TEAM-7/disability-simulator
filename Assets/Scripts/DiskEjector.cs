@@ -54,6 +54,7 @@ public class DiskEjector : MonoBehaviour
     public void EjectDisk()
     {
         GameObject disk = Instantiate(diskPrefab, GetRandomPositionInMesh(boundary), Quaternion.Euler(-90, 0, 0));
+        disk.GetComponent<Disk>().SetRandomColor();
         Rigidbody diskRigidBody = disk.GetComponent<Disk>().disk.GetComponent<Rigidbody>();
         diskRigidBody.AddForce(Vector3.up * Random.Range(minMagnitude, maxMagnitude), ForceMode.Force);
         Destroy(disk, 30f); // in seconds

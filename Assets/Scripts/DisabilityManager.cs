@@ -66,7 +66,7 @@ public class DisabilityManager : MonoBehaviour
 
     }
 
-    private void applyColorBlindness(string colorblindnessName)
+    private void ApplyColorBlindness(string colorblindnessName)
     {
         //if (postProcessingVolume.profile.TryGet<ColorCurves>(out var colorCurves))
         //{
@@ -91,15 +91,15 @@ public class DisabilityManager : MonoBehaviour
     }
 
 
-    public void applyColorBlindness(ColorBlindessTypes colorBlindNessName)
+    public void ApplyColorBlindness(ColorBlindessTypes colorBlindNessName)
     {
-        applyColorBlindness(colorBlindNessName.ToString());
+        ApplyColorBlindness(colorBlindNessName.ToString());
     }
 
     [ContextMenu("Remove VisionImpairments")]
-    public void clearAllVisionImpairments()
+    public void ClearAllVisionImpairments()
     {
-        applyColorBlindness(ColorBlindessTypes.normalvision);
+        ApplyColorBlindness(ColorBlindessTypes.normalvision);
         if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
         {
             vignette.active = false;
@@ -111,34 +111,34 @@ public class DisabilityManager : MonoBehaviour
     }
 
     [ContextMenu("Apply Proptanopia")]
-    public void applyProptanopia()
+    public void ApplyProptanopia()
     {
-        applyColorBlindness(ColorBlindessTypes.proptanopia);
-        //applyColorBlindness("proptanopia");
+        ApplyColorBlindness(ColorBlindessTypes.proptanopia);
+        //ApplyColorBlindness("proptanopia");
     }
 
     [ContextMenu("Apply Deuteranopia")]
-    public void applyDeuteranopia()
+    public void ApplyDeuteranopia()
     {
-        applyColorBlindness(ColorBlindessTypes.deuteranopia);
-        //applyColorBlindness("deuteranopia");
+        ApplyColorBlindness(ColorBlindessTypes.deuteranopia);
+        //ApplyColorBlindness("deuteranopia");
     }
 
     [ContextMenu("Apply Tritanopia")]
-    public void applyTritanopia()
+    public void ApplyTritanopia()
     {
-        applyColorBlindness(ColorBlindessTypes.tritanopia);
-        //applyColorBlindness("tritanopia");
+        ApplyColorBlindness(ColorBlindessTypes.tritanopia);
+        //ApplyColorBlindness("tritanopia");
     }
 
     [ContextMenu("Apply NormalVision")]
-    public void applyNormalVision()
+    public void ApplyNormalVision()
     {
-        applyColorBlindness(ColorBlindessTypes.normalvision);
+        ApplyColorBlindness(ColorBlindessTypes.normalvision);
     }
 
     [ContextMenu("Apply Glaucoma")]
-    public void applyGlaucoma()
+    public void ApplyGlaucoma()
     {
         if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
         {
@@ -147,7 +147,7 @@ public class DisabilityManager : MonoBehaviour
     }
 
     [ContextMenu("Apply Cataracts")]
-    public void applyCataracts()
+    public void ApplyCataracts()
     {
         if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
         {
@@ -157,7 +157,7 @@ public class DisabilityManager : MonoBehaviour
 
 
     [ContextMenu("Apply Macular Degeneration")]
-    public void applyMacularDegeneration()
+    public void ApplyMacularDegeneration()
     {
         if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
         {
@@ -169,6 +169,6 @@ public class DisabilityManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // applyColorBlindness("proptanopia");
+       // ApplyColorBlindness("proptanopia");
     }
 }

@@ -8,10 +8,24 @@ public class Disk : MonoBehaviour
     public GameObject diskShattered;
     public Color[] diskColors;
 
+    private int scoreIncrementation = 0;
+
     public void SetRandomColor()
     {
         Material diskMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-        diskMaterial.color = Color.red;
+
+        int randomNumber = Random.Range(0, 2);
+        if (randomNumber == 0)
+        {
+            diskMaterial.color = Color.red;
+            scoreIncrementation = -2;
+        }
+        else
+        {
+            diskMaterial.color = Color.green;
+            scoreIncrementation = 1;
+        }
+
         diskMaterial.SetFloat("_Metallic", 1f);
         diskMaterial.SetFloat("_Glossiness", 0.5f);
 
@@ -28,5 +42,6 @@ public class Disk : MonoBehaviour
         diskShattered.transform.position = disk.transform.position;
         disk.SetActive(false);
         diskShattered.SetActive(true);
+        DisabilityEvent.instance.IncrementScore(scoreIncrementation);
     }
 }

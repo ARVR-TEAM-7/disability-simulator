@@ -21,6 +21,13 @@ public class DisabilityManager : MonoBehaviour
     //public bool deuteranopia = false;   // Missing Green
     //public bool tritanopia = false;     // Missing Blue
 
+    public AudioSource protanopiaSound;
+    public AudioSource deuteranopiaSound;
+    public AudioSource tritanopiaSound;
+    public AudioSource glaucomaSound;
+    public AudioSource cataractsSound;
+    public AudioSource normalVisionSound;
+
     private Volume postProcessingVolume;
 
     private Dictionary<string, Dictionary<string, Vector3>> colorBlindnessProfiles;
@@ -124,6 +131,7 @@ public class DisabilityManager : MonoBehaviour
     [ContextMenu("Apply Proptanopia")]
     public void ApplyProptanopia()
     {
+        protanopiaSound.PlayOneShot(protanopiaSound.clip, 1f);
         ApplyColorBlindness(ColorBlindessTypes.proptanopia);
         //ApplyColorBlindness("proptanopia");
     }
@@ -131,6 +139,7 @@ public class DisabilityManager : MonoBehaviour
     [ContextMenu("Apply Deuteranopia")]
     public void ApplyDeuteranopia()
     {
+        deuteranopiaSound.PlayOneShot(deuteranopiaSound.clip, 1f);
         ApplyColorBlindness(ColorBlindessTypes.deuteranopia);
         //ApplyColorBlindness("deuteranopia");
     }
@@ -138,6 +147,7 @@ public class DisabilityManager : MonoBehaviour
     [ContextMenu("Apply Tritanopia")]
     public void ApplyTritanopia()
     {
+        tritanopiaSound.PlayOneShot(tritanopiaSound.clip, 1f);
         ApplyColorBlindness(ColorBlindessTypes.tritanopia);
         //ApplyColorBlindness("tritanopia");
     }
@@ -145,12 +155,14 @@ public class DisabilityManager : MonoBehaviour
     [ContextMenu("Apply NormalVision")]
     public void ApplyNormalVision()
     {
+        normalVisionSound.PlayOneShot(normalVisionSound.clip, 1f);
         ClearAllVisionImpairments();
     }
 
     [ContextMenu("Apply Glaucoma")]
     public void ApplyGlaucoma()
     {
+        glaucomaSound.PlayOneShot(glaucomaSound.clip, 1f);
         if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
         {
             vignette.active = true;
@@ -160,6 +172,7 @@ public class DisabilityManager : MonoBehaviour
     [ContextMenu("Apply Cataracts")]
     public void ApplyCataracts()
     {
+        cataractsSound.PlayOneShot(cataractsSound.clip, 1f);
         if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
         {
             bloom.active = true;

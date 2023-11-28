@@ -20,5 +20,10 @@ public class DestroyOnCollision : MonoBehaviour
       float y = Random.Range(minY, maxY);
       Instantiate(objectToSpawn, new Vector3(x, y, 0), Quaternion.identity);
     }
+    else if (collision.gameObject.tag == "Disk")
+    {
+        Disk disk = collision.gameObject.GetComponentInParent<Disk>();
+        disk.ShatterDisk();
+    }
   }
 }

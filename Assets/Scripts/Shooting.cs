@@ -52,5 +52,6 @@ public class Shoot : MonoBehaviour
     GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
     Rigidbody rb = bullet.GetComponent<Rigidbody>();
     rb.AddForce(transform.forward * bulletSpeed, ForceMode.Force);
+    Destroy(bullet, 2.0f);
   }
 }

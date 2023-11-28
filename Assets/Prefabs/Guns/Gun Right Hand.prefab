@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6232107564105146016, guid: 674adf642abf5614aae2995443c8250f, type: 3}
-  bulletSpeed: 20
+  bulletSpeed: 6000
   cooldownDuration: 0.25
   deagleSound: {fileID: 2413511643371588023}
   casingPrefab: {fileID: 4362657251999731927, guid: 4cb20e8abae957146a8b78e670d3fe74, type: 3}

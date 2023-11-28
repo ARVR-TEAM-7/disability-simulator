@@ -10,6 +10,7 @@ public class DestroyOnCollision : MonoBehaviour
 
   private void OnCollisionEnter(Collision collision)
   {
+        //Debug.Log(collision.gameObject.name);
     // Check if the object has a specific tag, for example "Enemy"
     if (collision.gameObject.tag == "DestroyCube")
     {
@@ -25,5 +26,10 @@ public class DestroyOnCollision : MonoBehaviour
         Disk disk = collision.gameObject.GetComponentInParent<Disk>();
         disk.ShatterDisk();
     }
-  }
+    else if (collision.gameObject.tag == "Reset")
+    {
+        ResetTimer timer = collision.gameObject.GetComponent<ResetTimer>();
+        timer.Reset();
+    }
+    }
 }

@@ -15,7 +15,16 @@ public class DisabilityEvent : MonoBehaviour
     public TextMeshProUGUI score;
     public TextMeshProUGUI timer;
 
+    public GameObject inSession;
+    public GameObject outSession;
+
+    public GameObject leaderboard;
+
+    [Header("Prefabs")]
+    public GameObject scoreCardPrefab;
+
     private int scoreCount;
+    private bool timerRunning;
 
     private float sessionTimeNow = 0f;
     private float timeSinceLastSession = 0f;
@@ -24,6 +33,8 @@ public class DisabilityEvent : MonoBehaviour
     private float disabilityTimeNow = 0f;
     private float timeSinceLastDisability = 0f;
     private float timeTillNewDisability = 0f;
+
+    private List<int> leaderboardStats = new List<int>();
 
     private DisabilityManager disabilityManager;
     void Awake()
@@ -42,7 +53,10 @@ public class DisabilityEvent : MonoBehaviour
 
     public void IncrementScore(int increment)
     {
-        scoreCount += increment;
+        if (timerRunning)
+        {
+            scoreCount += increment;
+        }
     }
     // Update is called once per frame
     void Update()
@@ -51,9 +65,11 @@ public class DisabilityEvent : MonoBehaviour
 
         if (sessionTimeNow > timeTillNewSession)
         {
-            timeSinceLastSession = Time.realtimeSinceStartup;
-            timeTillNewSession = sessionTimeInSeconds;
-            StartNewSession();
+            SessionEnded();
+        }
+        else
+        {
+            timer.text = string.Format("{0:0.0}", timeTillNewSession - sessionTimeNow);
         }
 
         disabilityTimeNow = Time.realtimeSinceStartup - timeSinceLastDisability;
@@ -66,14 +82,58 @@ public class DisabilityEvent : MonoBehaviour
         }
 
         score.text = scoreCount.ToString();
-        timer.text = string.Format("{0:0.0}", timeTillNewSession - sessionTimeNow);
-
     }
 
-    void StartNewSession()
+    public void StartNewSession()
     {
+        if (timerRunning)
+            return;
+
         Debug.Log("New Session");
         scoreCount = 0;
+        timeSinceLastSession = Time.realtimeSinceStartup;
+        timeTillNewSession = sessionTimeInSeconds;
+        SetTimerRunning(true);
+    }
+
+    private void SessionEnded()
+    {
+        if (!timerRunning)
+            return;
+
+        SetTimerRunning(false);
+        timer.text = "0";
+        leaderboardStats.Add(scoreCount);
+        leaderboardStats.Sort();
+        leaderboardStats.Reverse();
+        RefreshLeaderboardUI();
+    }
+
+    private void RefreshLeaderboardUI()
+    {
+        foreach (Transform child in leaderboard.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (int score in leaderboardStats)
+        {
+            GameObject scoreCard = Instantiate(scoreCardPrefab, leaderboard.transform);
+            scoreCard.GetComponent<ScoreCard>().SetScore(score.ToString());
+        }
+    }
+
+
+    private void SetTimerRunning(bool isRunning)
+    {
+        timerRunning = isRunning;
+        inSession.SetActive(timerRunning);
+        outSession.SetActive(!timerRunning);
+    }
+
+    public bool isTimerRunning()
+    {
+        return timerRunning;
     }
 
 }

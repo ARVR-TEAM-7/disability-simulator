@@ -26,6 +26,9 @@ public class DiskEjector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!DisabilityEvent.instance.isTimerRunning())
+            return;
+
         timeNow = Time.realtimeSinceStartup - timeSinceLastDisk;
 
         if (timeNow > timeTillNewDisk)

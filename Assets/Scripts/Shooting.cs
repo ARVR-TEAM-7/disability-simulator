@@ -38,6 +38,7 @@ public class Shoot : MonoBehaviour
     }
   }
 
+[ContextMenu("Shoot")]
   void ShootBullet()
   {
     gunAnimator.speed = 3.0f;

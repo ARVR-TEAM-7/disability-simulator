@@ -181,7 +181,7 @@ public class DisabilityManager : MonoBehaviour
         //{
         //    bloom.active = true;
         //};
-        cataractsMaterial.SetFloat("_Intensity", 3);
+        cataractsMaterial.SetFloat("_Intensity", 1);
     }
 
 

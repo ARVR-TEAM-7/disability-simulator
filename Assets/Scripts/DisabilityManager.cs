@@ -20,7 +20,10 @@ public class DisabilityManager : MonoBehaviour
     //public bool protanopia = false;     // Missing Red
     //public bool deuteranopia = false;   // Missing Green
     //public bool tritanopia = false;     // Missing Blue
+    [Header("Full Screen Shaders")]
+    public Material cataractsMaterial;
 
+    [Header("Audio Sources")]
     public AudioSource protanopiaSound;
     public AudioSource deuteranopiaSound;
     public AudioSource tritanopiaSound;
@@ -122,10 +125,11 @@ public class DisabilityManager : MonoBehaviour
         {
             vignette.active = false;
         };
-        if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
-        {
-            bloom.active = false;
-        };
+        //if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
+        //{
+        //    bloom.active = false;
+        //};
+        cataractsMaterial.SetFloat("_Intensity", 0);
     }
 
     [ContextMenu("Apply Proptanopia")]
@@ -173,10 +177,11 @@ public class DisabilityManager : MonoBehaviour
     public void ApplyCataracts()
     {
         cataractsSound.PlayOneShot(cataractsSound.clip, 1f);
-        if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
-        {
-            bloom.active = true;
-        };
+        //if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
+        //{
+        //    bloom.active = true;
+        //};
+        cataractsMaterial.SetFloat("_Intensity", 3);
     }
 
 

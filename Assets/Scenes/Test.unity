@@ -4998,6 +4998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9ba237e854e954a93b92179d94e790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cataractsMaterial: {fileID: 2100000, guid: 8651ba2716461794b9a68c50f0f6e4c3, type: 2}
   protanopiaSound: {fileID: 710469744}
   deuteranopiaSound: {fileID: 387760020}
   tritanopiaSound: {fileID: 258075515}

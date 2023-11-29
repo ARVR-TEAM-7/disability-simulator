@@ -32,6 +32,7 @@ public class Shoot : MonoBehaviour
         if (triggerButtonPressed && Time.time >= lastShotTime + cooldownDuration)
         {
           ShootBullet();
+          rightController.SendHapticImpulse(0, 0.4f, 0.1f);
           lastShotTime = Time.time;
         }
       }

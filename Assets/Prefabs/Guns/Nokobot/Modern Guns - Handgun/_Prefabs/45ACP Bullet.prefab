@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4491196398505849242}
   - component: {fileID: 1665684861036570194}
   - component: {fileID: 7480376560203748259}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 45ACP Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.05
-  m_Height: 0.05
+  m_Height: 0.2
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &7480376560203748259
@@ -314,10 +314,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8698172140991394757, guid: 4cb20e8abae957146a8b78e670d3fe74, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8819463411033753325, guid: 4cb20e8abae957146a8b78e670d3fe74, type: 3}
-      propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

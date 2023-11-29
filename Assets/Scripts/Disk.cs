@@ -8,6 +8,8 @@ public class Disk : MonoBehaviour
     public GameObject diskShattered;
     public Color[] diskColors;
 
+    public AudioSource[] shatterSounds; // expected length = 3
+
     private int scoreIncrementation = 0;
 
     public void SetRandomColor()
@@ -39,6 +41,8 @@ public class Disk : MonoBehaviour
     [ContextMenu("Shatter Disk")]
     public void ShatterDisk()
     {
+        int randomNumber = Random.Range(0, 3);
+        shatterSounds[randomNumber].PlayOneShot(shatterSounds[randomNumber].clip, 0.5f);
         diskShattered.transform.position = disk.transform.position;
         disk.SetActive(false);
         diskShattered.SetActive(true);

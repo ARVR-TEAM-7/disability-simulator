@@ -11,6 +11,11 @@ public class DisabilityEvent : MonoBehaviour
     public float sessionTimeInSeconds = 30f;
     public float switchDisabilitiesInSeconds = 10f;
 
+    [Header("Audio")]
+    public AudioSource gameMusic;
+    public AudioSource warningSound;
+    public AudioSource endingSound;
+
     [Header("Components")]
     public TextMeshProUGUI score;
     public TextMeshProUGUI timer;
@@ -37,6 +42,9 @@ public class DisabilityEvent : MonoBehaviour
     private List<int> leaderboardStats = new List<int>();
 
     private DisabilityManager disabilityManager;
+
+    private bool timeWarningSounded = false;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -72,6 +80,12 @@ public class DisabilityEvent : MonoBehaviour
             timer.text = string.Format("{0:0.0}", timeTillNewSession - sessionTimeNow);
         }
 
+        if (timerRunning && timeTillNewSession - sessionTimeNow < 4 && !timeWarningSounded)
+        {
+            StartCoroutine(PlayTimeWarning());
+            timeWarningSounded = true;
+        }
+
         disabilityTimeNow = Time.realtimeSinceStartup - timeSinceLastDisability;
 
         if (disabilityTimeNow > timeTillNewDisability)
@@ -89,7 +103,10 @@ public class DisabilityEvent : MonoBehaviour
         if (timerRunning)
             return;
 
-        Debug.Log("New Session");
+        Debug.Log("New Session"); 
+
+        gameMusic.PlayOneShot(gameMusic.clip, 0.75f);
+        timeWarningSounded = false;
         scoreCount = 0;
         timeSinceLastSession = Time.realtimeSinceStartup;
         timeTillNewSession = sessionTimeInSeconds;
@@ -134,6 +151,23 @@ public class DisabilityEvent : MonoBehaviour
     public bool isTimerRunning()
     {
         return timerRunning;
+    }
+
+    private IEnumerator PlayTimeWarning()
+    {
+        while (true)
+        {
+            warningSound.PlayOneShot(warningSound.clip, 0.75f);
+            yield return new WaitForSeconds(1f);
+            warningSound.PlayOneShot(warningSound.clip, 0.75f);
+            yield return new WaitForSeconds(1f);
+            warningSound.PlayOneShot(warningSound.clip, 0.75f);
+            yield return new WaitForSeconds(1f);
+            endingSound.PlayOneShot(endingSound.clip, 1f);
+            yield break;
+        }
+        
+
     }
 
 }

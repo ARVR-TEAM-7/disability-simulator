@@ -32,8 +32,8 @@ public class Shoot : MonoBehaviour
         if (triggerButtonPressed && Time.time >= lastShotTime + cooldownDuration)
         {
           ShootBullet();
-          rightController.SendHapticImpulse(0, 0.4f, 0.1f);
           lastShotTime = Time.time;
+          rightController.SendHapticImpulse(0, 0.4f, 0.1f);
         }
       }
     }
@@ -44,7 +44,7 @@ public class Shoot : MonoBehaviour
   {
     gunAnimator.speed = 3.0f;
     gunAnimator.SetTrigger("Fire");
-    deagleSound.Play();
+    deagleSound.PlayOneShot(deagleSound.clip);
     if (muzzleFlashPrefab)
     {
       GameObject tempFlash = Instantiate(muzzleFlashPrefab, transform.position, transform.rotation);

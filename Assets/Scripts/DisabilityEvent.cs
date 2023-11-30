@@ -80,7 +80,7 @@ public class DisabilityEvent : MonoBehaviour
             timer.text = string.Format("{0:0.0}", timeTillNewSession - sessionTimeNow);
         }
 
-        if (timerRunning && timeTillNewSession - sessionTimeNow < 4 && !timeWarningSounded)
+        if (timerRunning && timeTillNewSession - sessionTimeNow < 3 && !timeWarningSounded)
         {
             StartCoroutine(PlayTimeWarning());
             timeWarningSounded = true;

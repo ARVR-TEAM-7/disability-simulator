@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8495495862079750312}
   m_Layer: 0
-  m_Name: Gun Right Hand
+  m_Name: Gun Left Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   deagleSound: {fileID: 2413511643371588023}
   casingPrefab: {fileID: 4362657251999731927, guid: 4cb20e8abae957146a8b78e670d3fe74, type: 3}
   muzzleFlashPrefab: {fileID: 1782395880954752, guid: 3dd9cf2e209c504448f1c4c6835675cf, type: 3}
-  isRightHand: 1
+  isRightHand: 0
   gunAnimator: {fileID: 7085435771787203167}
   casingExitLocation: {fileID: 39923170758080010}
   destroyTimer: 2

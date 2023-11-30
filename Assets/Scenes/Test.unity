@@ -3464,10 +3464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a8ec366dcc49e408ccd3bf2e2ff402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMagnitude: 759
-  maxMagnitude: 850
-  minTimeTillNewDiskSeconds: 0.5
-  maxTimeTillNewDiskSeconds: 3
+  minMagnitude: 850
+  maxMagnitude: 950
+  minTimeTillNewDiskSeconds: 0.4
+  maxTimeTillNewDiskSeconds: 1.5
   diskPrefab: {fileID: 7568547108651023532, guid: 04d61e6f18c364f4592a1530fe5f6256, type: 3}
 --- !u!33 &1099354768
 MeshFilter:
@@ -5899,6 +5899,14 @@ PrefabInstance:
       propertyPath: m_ModelPrefab
       value: 
       objectReference: {fileID: 8495495862079750312, guid: 3454e5998e4734fd9adc21e3c6915490, type: 3}
+    - target: {fileID: 2871854917430088266, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871854917430088266, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_ModelPrefab
+      value: 
+      objectReference: {fileID: 8495495862079750312, guid: 12ccbdf304e8a465c82d2e4d2cff692f, type: 3}
     - target: {fileID: 4271511168488432969, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_FacingExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6019,6 +6027,8 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 5038768215742077563, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
     - {fileID: 6396743587534923916, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+    - {fileID: 6589785594443461639, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+    - {fileID: 8096943569256388460, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}

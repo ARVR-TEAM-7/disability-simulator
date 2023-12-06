@@ -58,14 +58,14 @@ public class DisabilityManager : MonoBehaviour
                 { "b", new Vector3 (0  , 0  , 100) },
             } },
             { "proptanopia", new Dictionary<string, Vector3>{ 
-                { "r", new Vector3 (56.667f, 43.333f, 0      ) },
-                { "g", new Vector3 (55.833f, 44.167f, 0      ) },
-                { "b", new Vector3 (0,       24.167f, 75.833f) },
+                { "r", new Vector3 (0, 60, 60) },
+                { "g", new Vector3 (0, 60, 60) },
+                { "b", new Vector3 (0, 0,   100) },
             } },
             { "deuteranopia", new Dictionary<string, Vector3>{
-                { "r", new Vector3 (62.5f, 37.5f, 0 ) },
-                { "g", new Vector3 (70,    30,    0 ) },
-                { "b", new Vector3 (0,     30,    70) },
+                { "r", new Vector3 (0, 100, 100 ) },
+                { "g", new Vector3 (0, 100, 100 ) },
+                { "b", new Vector3 (0  , 0, 100) },
             } },
             { "tritanopia", new Dictionary<string, Vector3>{
                 { "r", new Vector3 (95, 5,       0      ) },
@@ -199,6 +199,8 @@ public class DisabilityManager : MonoBehaviour
     {
         ClearAllVisionImpairments();
         int randomNumber = UnityEngine.Random.Range(0, disabilities.Count-2);
+        // testing visual impairment
+        // Action disability = disabilities[1];
         Action disability = disabilities[randomNumber];
         disability();
         disabilities.RemoveAt(randomNumber);

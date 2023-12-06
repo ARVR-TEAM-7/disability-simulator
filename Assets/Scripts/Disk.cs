@@ -16,15 +16,17 @@ public class Disk : MonoBehaviour
   {
     Material diskMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
 
-    int randomNumber = Random.Range(0, 4);
+    int randomNumber = Random.Range(0, 2);
     if (randomNumber == 0)
     {
-      diskMaterial.color = Color.red;
+      // red
+      diskMaterial.color = new Color(231f/255f, 166f/255f, 112f/255f);
       scoreIncrementation = -2;
     }
     else
     {
-      diskMaterial.color = Color.green;
+      // green
+      diskMaterial.color = new Color(64f/255f, 166f/255, 112f/255f);
       scoreIncrementation = 1;
     }
 

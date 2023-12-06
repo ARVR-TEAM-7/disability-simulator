@@ -7,57 +7,57 @@ using UnityEngine.Rendering.Universal; // For URP
 
 public enum ColorBlindessTypes
 {
-    normalvision,
-    proptanopia,
-    deuteranopia,
-    tritanopia,
+  normalvision,
+  proptanopia,
+  deuteranopia,
+  tritanopia,
 }
 
 public class DisabilityManager : MonoBehaviour
 {
-    public static DisabilityManager instance { get; private set; }
-    //[HeaderAttribute("Disabilities")]
-    //public bool protanopia = false;     // Missing Red
-    //public bool deuteranopia = false;   // Missing Green
-    //public bool tritanopia = false;     // Missing Blue
-    [Header("Full Screen Shaders")]
-    public Material cataractsMaterial;
+  public static DisabilityManager instance { get; private set; }
+  //[HeaderAttribute("Disabilities")]
+  //public bool protanopia = false;     // Missing Red
+  //public bool deuteranopia = false;   // Missing Green
+  //public bool tritanopia = false;     // Missing Blue
+  [Header("Full Screen Shaders")]
+  public Material cataractsMaterial;
 
-    [Header("Audio Sources")]
-    public AudioSource protanopiaSound;
-    public AudioSource deuteranopiaSound;
-    public AudioSource tritanopiaSound;
-    public AudioSource glaucomaSound;
-    public AudioSource cataractsSound;
-    public AudioSource normalVisionSound;
+  [Header("Audio Sources")]
+  public AudioSource protanopiaSound;
+  public AudioSource deuteranopiaSound;
+  public AudioSource tritanopiaSound;
+  public AudioSource glaucomaSound;
+  public AudioSource cataractsSound;
+  public AudioSource normalVisionSound;
 
-    private Volume postProcessingVolume;
+  private Volume postProcessingVolume;
 
-    private Dictionary<string, Dictionary<string, Vector3>> colorBlindnessProfiles;
-    private List<Action> disabilities;
+  private Dictionary<string, Dictionary<string, Vector3>> colorBlindnessProfiles;
+  private List<Action> disabilities;
 
-    private int lastDisability;
+  private int lastDisability;
 
-    private void Awake()
+  private void Awake()
+  {
+    if (instance != null && instance != this)
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            instance = this;
-        }
+      Destroy(this);
+    }
+    else
+    {
+      instance = this;
+    }
 
-        postProcessingVolume = gameObject.GetComponent<Volume>();
-        colorBlindnessProfiles = new Dictionary<string, Dictionary<string, Vector3>>
+    postProcessingVolume = gameObject.GetComponent<Volume>();
+    colorBlindnessProfiles = new Dictionary<string, Dictionary<string, Vector3>>
         {
             { "normalvision", new Dictionary<string, Vector3>{
                 { "r", new Vector3 (100, 0  , 0  ) },
                 { "g", new Vector3 (0  , 100, 0  ) },
                 { "b", new Vector3 (0  , 0  , 100) },
             } },
-            { "proptanopia", new Dictionary<string, Vector3>{ 
+            { "proptanopia", new Dictionary<string, Vector3>{
                 { "r", new Vector3 (0, 60, 60) },
                 { "g", new Vector3 (0, 60, 60) },
                 { "b", new Vector3 (0, 0,   100) },
@@ -74,140 +74,140 @@ public class DisabilityManager : MonoBehaviour
             } },
         };
 
-        disabilities = new List<Action>();
-        disabilities.Add(ApplyProptanopia);
-        disabilities.Add(ApplyDeuteranopia);
-        disabilities.Add(ApplyTritanopia);
-        disabilities.Add(ApplyGlaucoma);
-        disabilities.Add(ApplyCataracts);
-    }
-    // Start is called before the first frame update
-    void Start()
+    disabilities = new List<Action>();
+    disabilities.Add(ApplyProptanopia);
+    disabilities.Add(ApplyDeuteranopia);
+    disabilities.Add(ApplyTritanopia);
+    disabilities.Add(ApplyGlaucoma);
+    disabilities.Add(ApplyCataracts);
+  }
+  // Start is called before the first frame update
+  void Start()
+  {
+
+  }
+
+  private void ApplyColorBlindness(string colorblindnessName)
+  {
+    //if (postProcessingVolume.profile.TryGet<ColorCurves>(out var colorCurves))
+    //{
+    //    colorCurves.red.overrideState = protanopia;
+    //    colorCurves.green.overrideState = deuteranopia;
+    //    colorCurves.blue.overrideState = tritanopia;
+    //}
+    if (postProcessingVolume.profile.TryGet<ChannelMixer>(out var channelMixer))
     {
+      channelMixer.redOutRedIn.value = colorBlindnessProfiles[colorblindnessName]["r"][0];
+      channelMixer.redOutGreenIn.value = colorBlindnessProfiles[colorblindnessName]["r"][1];
+      channelMixer.redOutBlueIn.value = colorBlindnessProfiles[colorblindnessName]["r"][2];
 
+      channelMixer.greenOutRedIn.value = colorBlindnessProfiles[colorblindnessName]["g"][0];
+      channelMixer.greenOutGreenIn.value = colorBlindnessProfiles[colorblindnessName]["g"][1];
+      channelMixer.greenOutBlueIn.value = colorBlindnessProfiles[colorblindnessName]["g"][2];
+
+      channelMixer.blueOutRedIn.value = colorBlindnessProfiles[colorblindnessName]["b"][0];
+      channelMixer.blueOutGreenIn.value = colorBlindnessProfiles[colorblindnessName]["b"][1];
+      channelMixer.blueOutBlueIn.value = colorBlindnessProfiles[colorblindnessName]["b"][2];
     }
+  }
 
-    private void ApplyColorBlindness(string colorblindnessName)
+
+  public void ApplyColorBlindness(ColorBlindessTypes colorBlindNessName)
+  {
+    ApplyColorBlindness(colorBlindNessName.ToString());
+  }
+
+  [ContextMenu("Remove VisionImpairments")]
+  public void ClearAllVisionImpairments()
+  {
+    ApplyColorBlindness(ColorBlindessTypes.normalvision);
+    if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
     {
-        //if (postProcessingVolume.profile.TryGet<ColorCurves>(out var colorCurves))
-        //{
-        //    colorCurves.red.overrideState = protanopia;
-        //    colorCurves.green.overrideState = deuteranopia;
-        //    colorCurves.blue.overrideState = tritanopia;
-        //}
-        if (postProcessingVolume.profile.TryGet<ChannelMixer>(out var channelMixer))
-        {
-            channelMixer.redOutRedIn.value     = colorBlindnessProfiles[colorblindnessName]["r"][0];
-            channelMixer.redOutGreenIn.value   = colorBlindnessProfiles[colorblindnessName]["r"][1];
-            channelMixer.redOutBlueIn.value    = colorBlindnessProfiles[colorblindnessName]["r"][2];
+      vignette.active = false;
+    };
+    //if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
+    //{
+    //    bloom.active = false;
+    //};
+    cataractsMaterial.SetFloat("_Intensity", 0);
+  }
 
-            channelMixer.greenOutRedIn.value   = colorBlindnessProfiles[colorblindnessName]["g"][0];
-            channelMixer.greenOutGreenIn.value = colorBlindnessProfiles[colorblindnessName]["g"][1];
-            channelMixer.greenOutBlueIn.value  = colorBlindnessProfiles[colorblindnessName]["g"][2];
+  [ContextMenu("Apply Proptanopia")]
+  public void ApplyProptanopia()
+  {
+    protanopiaSound.PlayOneShot(protanopiaSound.clip, 1f);
+    ApplyColorBlindness(ColorBlindessTypes.proptanopia);
+    //ApplyColorBlindness("proptanopia");
+  }
 
-            channelMixer.blueOutRedIn.value    = colorBlindnessProfiles[colorblindnessName]["b"][0];
-            channelMixer.blueOutGreenIn.value  = colorBlindnessProfiles[colorblindnessName]["b"][1];
-            channelMixer.blueOutBlueIn.value   = colorBlindnessProfiles[colorblindnessName]["b"][2];
-        }
-    }
+  [ContextMenu("Apply Deuteranopia")]
+  public void ApplyDeuteranopia()
+  {
+    deuteranopiaSound.PlayOneShot(deuteranopiaSound.clip, 1f);
+    ApplyColorBlindness(ColorBlindessTypes.deuteranopia);
+    //ApplyColorBlindness("deuteranopia");
+  }
 
+  [ContextMenu("Apply Tritanopia")]
+  public void ApplyTritanopia()
+  {
+    tritanopiaSound.PlayOneShot(tritanopiaSound.clip, 1f);
+    ApplyColorBlindness(ColorBlindessTypes.tritanopia);
+    //ApplyColorBlindness("tritanopia");
+  }
 
-    public void ApplyColorBlindness(ColorBlindessTypes colorBlindNessName)
+  [ContextMenu("Apply NormalVision")]
+  public void ApplyNormalVision()
+  {
+    normalVisionSound.PlayOneShot(normalVisionSound.clip, 1f);
+    ClearAllVisionImpairments();
+  }
+
+  [ContextMenu("Apply Glaucoma")]
+  public void ApplyGlaucoma()
+  {
+    glaucomaSound.PlayOneShot(glaucomaSound.clip, 1f);
+    if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
     {
-        ApplyColorBlindness(colorBlindNessName.ToString());
-    }
+      vignette.active = true;
+    };
+  }
 
-    [ContextMenu("Remove VisionImpairments")]
-    public void ClearAllVisionImpairments()
+  [ContextMenu("Apply Cataracts")]
+  public void ApplyCataracts()
+  {
+    cataractsSound.PlayOneShot(cataractsSound.clip, 1f);
+    //if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
+    //{
+    //    bloom.active = true;
+    //};
+    cataractsMaterial.SetFloat("_Intensity", 1);
+  }
+
+
+  [ContextMenu("Apply Macular Degeneration")]
+  public void ApplyMacularDegeneration()
+  {
+    if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
     {
-        ApplyColorBlindness(ColorBlindessTypes.normalvision);
-        if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
-        {
-            vignette.active = false;
-        };
-        //if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
-        //{
-        //    bloom.active = false;
-        //};
-        cataractsMaterial.SetFloat("_Intensity", 0);
-    }
-
-    [ContextMenu("Apply Proptanopia")]
-    public void ApplyProptanopia()
-    {
-        protanopiaSound.PlayOneShot(protanopiaSound.clip, 1f);
-        ApplyColorBlindness(ColorBlindessTypes.proptanopia);
-        //ApplyColorBlindness("proptanopia");
-    }
-
-    [ContextMenu("Apply Deuteranopia")]
-    public void ApplyDeuteranopia()
-    {
-        deuteranopiaSound.PlayOneShot(deuteranopiaSound.clip, 1f);
-        ApplyColorBlindness(ColorBlindessTypes.deuteranopia);
-        //ApplyColorBlindness("deuteranopia");
-    }
-
-    [ContextMenu("Apply Tritanopia")]
-    public void ApplyTritanopia()
-    {
-        tritanopiaSound.PlayOneShot(tritanopiaSound.clip, 1f);
-        ApplyColorBlindness(ColorBlindessTypes.tritanopia);
-        //ApplyColorBlindness("tritanopia");
-    }
-
-    [ContextMenu("Apply NormalVision")]
-    public void ApplyNormalVision()
-    {
-        normalVisionSound.PlayOneShot(normalVisionSound.clip, 1f);
-        ClearAllVisionImpairments();
-    }
-
-    [ContextMenu("Apply Glaucoma")]
-    public void ApplyGlaucoma()
-    {
-        glaucomaSound.PlayOneShot(glaucomaSound.clip, 1f);
-        if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
-        {
-            vignette.active = true;
-        };
-    }
-
-    [ContextMenu("Apply Cataracts")]
-    public void ApplyCataracts()
-    {
-        cataractsSound.PlayOneShot(cataractsSound.clip, 1f);
-        //if (postProcessingVolume.profile.TryGet<Bloom>(out var bloom))
-        //{
-        //    bloom.active = true;
-        //};
-        cataractsMaterial.SetFloat("_Intensity", 1);
-    }
+      vignette.active = true;
+    };
+  }
 
 
-    [ContextMenu("Apply Macular Degeneration")]
-    public void ApplyMacularDegeneration()
-    {
-        if (postProcessingVolume.profile.TryGet<Vignette>(out var vignette))
-        {
-            vignette.active = true;
-        };
-    }
+  public void SetRandomDisability()
+  {
+    ClearAllVisionImpairments();
+    int randomNumber = UnityEngine.Random.Range(0, disabilities.Count - 2);
+    // testing visual impairment
+    // Action disability = disabilities[0];
+    Action disability = disabilities[randomNumber];
+    disability();
+    disabilities.RemoveAt(randomNumber);
+    disabilities.Add(disability);
 
-
-    public void SetRandomDisability()
-    {
-        ClearAllVisionImpairments();
-        int randomNumber = UnityEngine.Random.Range(0, disabilities.Count-2);
-        // testing visual impairment
-        // Action disability = disabilities[1];
-        Action disability = disabilities[randomNumber];
-        disability();
-        disabilities.RemoveAt(randomNumber);
-        disabilities.Add(disability);
-
-        Debug.Log("Disability Appied");
-        //Debug.Log(disabilities);
-    }
+    Debug.Log("Disability Appied");
+    //Debug.Log(disabilities);
+  }
 
 }

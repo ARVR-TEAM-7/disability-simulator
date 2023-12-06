@@ -35,10 +35,6 @@ public class DisabilityEvent : MonoBehaviour
     private float timeSinceLastSession = 0f;
     private float timeTillNewSession = 0f;
 
-    private float disabilityTimeNow = 0f;
-    private float timeSinceLastDisability = 0f;
-    private float timeTillNewDisability = 0f;
-
     private List<int> leaderboardStats = new List<int>();
 
     private DisabilityManager disabilityManager;
@@ -86,15 +82,6 @@ public class DisabilityEvent : MonoBehaviour
             timeWarningSounded = true;
         }
 
-        disabilityTimeNow = Time.realtimeSinceStartup - timeSinceLastDisability;
-
-        if (disabilityTimeNow > timeTillNewDisability)
-        {
-            timeSinceLastDisability = Time.realtimeSinceStartup;
-            timeTillNewDisability = switchDisabilitiesInSeconds;
-            disabilityManager.SetRandomDisability();
-        }
-
         score.text = scoreCount.ToString();
     }
 
@@ -111,6 +98,7 @@ public class DisabilityEvent : MonoBehaviour
         timeSinceLastSession = Time.realtimeSinceStartup;
         timeTillNewSession = sessionTimeInSeconds;
         SetTimerRunning(true);
+        StartCoroutine(RandomDisabilities());
     }
 
     private void SessionEnded()
@@ -124,6 +112,7 @@ public class DisabilityEvent : MonoBehaviour
         leaderboardStats.Sort();
         leaderboardStats.Reverse();
         RefreshLeaderboardUI();
+        disabilityManager.ApplyNormalVision();
     }
 
     private void RefreshLeaderboardUI()
@@ -166,8 +155,22 @@ public class DisabilityEvent : MonoBehaviour
             endingSound.PlayOneShot(endingSound.clip, 1f);
             yield break;
         }
-        
+    }
 
+    private IEnumerator RandomDisabilities()
+    {
+        while (timerRunning)
+        {
+            disabilityManager.SetRandomDisability();
+
+            for (int i = 0; i < switchDisabilitiesInSeconds; i++)
+            {
+                if (!timerRunning) {
+                    yield break;
+                }
+                yield return new WaitForSeconds(1.1f); // offset so we don't get a new disability at the very end
+            } 
+        }
     }
 
 }

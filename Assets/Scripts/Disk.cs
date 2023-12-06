@@ -9,8 +9,11 @@ public class Disk : MonoBehaviour
   public Color[] diskColors;
 
   public AudioSource[] shatterSounds; // expected length = 3
+  public AudioSource successSound;
+  public AudioSource failSound;
 
   private int scoreIncrementation = 0;
+  private AudioSource soundToPlay;
 
   public void SetRandomColor()
   {
@@ -22,12 +25,14 @@ public class Disk : MonoBehaviour
       // red
       diskMaterial.color = new Color(231f/255f, 166f/255f, 112f/255f);
       scoreIncrementation = -2;
+      soundToPlay = failSound;
     }
     else
     {
       // green
       diskMaterial.color = new Color(64f/255f, 166f/255, 112f/255f);
       scoreIncrementation = 1;
+      soundToPlay = successSound;
     }
 
     diskMaterial.SetFloat("_Metallic", 1f);
@@ -45,6 +50,7 @@ public class Disk : MonoBehaviour
   {
     int randomNumber = Random.Range(0, 3);
     shatterSounds[randomNumber].PlayOneShot(shatterSounds[randomNumber].clip, 0.5f);
+    soundToPlay.PlayOneShot(soundToPlay.clip, 0.3f);
     diskShattered.transform.position = disk.transform.position;
     disk.SetActive(false);
     diskShattered.SetActive(true);

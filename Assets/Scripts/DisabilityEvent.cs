@@ -168,7 +168,7 @@ public class DisabilityEvent : MonoBehaviour
                 if (!timerRunning) {
                     yield break;
                 }
-                yield return new WaitForSeconds(1.1f); // offset so we don't get a new disability at the very end
+                yield return new WaitForSeconds(1.01f); // offset so we don't get a new disability at the very end
             } 
         }
     }

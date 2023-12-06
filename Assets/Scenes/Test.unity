@@ -392,9 +392,10 @@ GameObject:
   - component: {fileID: 100249127}
   - component: {fileID: 100249129}
   - component: {fileID: 100249130}
+  - component: {fileID: 100249131}
   m_Layer: 0
   m_Name: NormalVisionCollider
-  m_TagString: Untagged
+  m_TagString: Interaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -429,7 +430,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -448,6 +449,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dm: {fileID: 1586975315}
+--- !u!114 &100249131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100249126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19d37b22759dd7478c418502a06fa91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impairmentName: normalvision
 --- !u!1 &159019912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3154,9 +3168,10 @@ GameObject:
   - component: {fileID: 994273756}
   - component: {fileID: 994273758}
   - component: {fileID: 994273757}
+  - component: {fileID: 994273759}
   m_Layer: 0
   m_Name: TritanopiaCollider
-  m_TagString: Untagged
+  m_TagString: Interaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3204,12 +3219,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &994273759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994273755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19d37b22759dd7478c418502a06fa91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impairmentName: tritanopia
 --- !u!1 &1020621361
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,9 +3249,10 @@ GameObject:
   - component: {fileID: 1020621362}
   - component: {fileID: 1020621364}
   - component: {fileID: 1020621363}
+  - component: {fileID: 1020621365}
   m_Layer: 0
   m_Name: DeuteranopiaCollider
-  m_TagString: Untagged
+  m_TagString: Interaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3271,12 +3300,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1020621365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020621361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19d37b22759dd7478c418502a06fa91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impairmentName: deuteranopia
 --- !u!1 &1035380354
 GameObject:
   m_ObjectHideFlags: 0
@@ -4378,9 +4420,10 @@ GameObject:
   - component: {fileID: 1184942993}
   - component: {fileID: 1184942995}
   - component: {fileID: 1184942994}
+  - component: {fileID: 1184942996}
   m_Layer: 0
   m_Name: CataractsCollider
-  m_TagString: Untagged
+  m_TagString: Interaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4428,12 +4471,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1184942996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184942992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19d37b22759dd7478c418502a06fa91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impairmentName: cataracts
 --- !u!1 &1201714553
 GameObject:
   m_ObjectHideFlags: 0
@@ -7091,9 +7147,10 @@ GameObject:
   - component: {fileID: 1904141989}
   - component: {fileID: 1904141991}
   - component: {fileID: 1904141990}
+  - component: {fileID: 1904141992}
   m_Layer: 0
   m_Name: ProtanopiaCollider
-  m_TagString: Untagged
+  m_TagString: Interaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7141,12 +7198,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1904141992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904141988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19d37b22759dd7478c418502a06fa91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impairmentName: proptanopia
 --- !u!1 &1912884297
 GameObject:
   m_ObjectHideFlags: 0
@@ -8248,9 +8318,10 @@ GameObject:
   - component: {fileID: 2087311976}
   - component: {fileID: 2087311978}
   - component: {fileID: 2087311977}
+  - component: {fileID: 2087311979}
   m_Layer: 0
   m_Name: GalucomaCollider
-  m_TagString: Untagged
+  m_TagString: Interaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8298,12 +8369,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2087311979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087311975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19d37b22759dd7478c418502a06fa91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impairmentName: glaucoma
 --- !u!1 &2102629066
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,6 +30,16 @@ public class DestroyOnCollision : MonoBehaviour
     {
         ResetTimer timer = collision.gameObject.GetComponent<ResetTimer>();
         timer.Reset();
+        gameObject.SetActive(false);
     }
-    }
+    else if (collision.gameObject.tag == "Interaction")
+        {
+            VisionImpairmentCollider visionImpairmentScript = collision.gameObject.GetComponent<VisionImpairmentCollider>();
+            if (null != visionImpairmentScript)
+            {
+                DisabilityManager.instance.SetDisability(visionImpairmentScript.impairmentName);
+                gameObject.SetActive(false);
+            }
+        }
+  }
 }

@@ -210,4 +210,29 @@ public class DisabilityManager : MonoBehaviour
     //Debug.Log(disabilities);
   }
 
+    public void SetDisability(string disabilityName)
+    {
+        switch (disabilityName)
+        {
+            case "proptanopia":
+                ApplyProptanopia();
+                break;
+            case "deuteranopia":
+                ApplyDeuteranopia();
+                break;
+            case "tritanopia":
+                ApplyTritanopia();
+                break;
+            case "glaucoma":
+                ApplyGlaucoma();
+                break;
+            case "cataracts":
+                ApplyCataracts();
+                break;
+            case "normalvision":
+            default:
+                ApplyNormalVision();
+                break;
+        }
+    }
 }
